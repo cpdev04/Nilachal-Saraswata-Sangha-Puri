@@ -9880,25 +9880,25 @@ small {
 }
 
 
-/* Donation Form */
+/* Pranami Form */
 
-.sigma_donation-form .input-group{
+.sigma_Pranami-form .input-group{
   max-width: 370px;
 }
 
-.sigma_donation-form .input-group .sigma_btn-custom.btn-sm{
+.sigma_Pranami-form .input-group .sigma_btn-custom.btn-sm{
   font-size: 24px;
   line-height: 1.5;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.sigma_donation-form .input-group .sigma_btn-custom.btn-sm:before{
+.sigma_Pranami-form .input-group .sigma_btn-custom.btn-sm:before{
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.sigma_donation-form .sigma_select-amount{
+.sigma_Pranami-form .sigma_select-amount{
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -9906,7 +9906,7 @@ small {
   margin-bottom: 0;
 }
 
-.sigma_donation-form .sigma_select-amount li{
+.sigma_Pranami-form .sigma_select-amount li{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -9917,14 +9917,14 @@ small {
   transition: 0.3s;
 }
 
-.sigma_donation-form .sigma_select-amount li:hover,
-.sigma_donation-form .sigma_select-amount li.active{
+.sigma_Pranami-form .sigma_select-amount li:hover,
+.sigma_Pranami-form .sigma_select-amount li.active{
   background-color: #7E4555;
   color: #fff;
   border-color: #7E4555;
 }
 
-.sigma_donation-form .sigma_select-amount li + li{
+.sigma_Pranami-form .sigma_select-amount li + li{
   margin-left: 15px;
 }
 

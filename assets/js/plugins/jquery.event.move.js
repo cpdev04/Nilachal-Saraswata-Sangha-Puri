@@ -91,7 +91,7 @@
 	var rspaces = /\s+/;
 
 
-	// DOM Donation
+	// DOM Pranami
 
 	var eventOptions = { bubbles: true, cancelable: true };
 
@@ -101,14 +101,14 @@
 		return new CustomEvent(type, eventOptions);
 	}
 
-	function getDonation(node) {
+	function getPranami(node) {
 		return node[eventsSymbol] || (node[eventsSymbol] = {});
 	}
 
 	function on(node, types, fn, data, selector) {
 		types = types.split(rspaces);
 
-		var events = getDonation(node);
+		var events = getPranami(node);
 		var i = types.length;
 		var handlers, type;
 
@@ -125,7 +125,7 @@
 	function off(node, types, fn, selector) {
 		types = types.split(rspaces);
 
-		var events = getDonation(node);
+		var events = getPranami(node);
 		var i = types.length;
 		var type, handlers, k;
 
