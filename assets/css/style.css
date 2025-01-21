@@ -218,6 +218,10 @@
 1.0. General
 ========================*/
 
+.bg-hero{
+  background-image: url('../banners/hero2.jpg');
+  background-size: cover;
+}
 .z-index-3{
   z-index: 3;
 }
@@ -290,6 +294,7 @@
   margin-top: 40px;
   margin-left: 30px;
 }
+
 
 .section-before{
   position: absolute;

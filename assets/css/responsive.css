@@ -518,6 +518,11 @@
 
 @media (max-width: 768px) {
 
+  .bg-hero {
+    background-image: url('../banners/sm-mobile.png') !important;
+    background-size: contain;
+  }
+
   .sigma_subheader > .container-fluid,
   .sigma_shapes.irregular .irregular-3,
   .sigma_img-custom::before,
