@@ -638,52 +638,79 @@
 			<button>Receipt</button>
 		</div>
 
-
 	</div>
 
 	<script>
-		document.getElementById("openCamera").addEventListener("click", async function () {
-			const previewContainer = document.getElementById("cameraPreview");
-			previewContainer.innerHTML = ""; // Clear any existing content
+	document.getElementById("openCamera").addEventListener("click", async function () {
+    const previewContainer = document.getElementById("cameraPreview");
+    previewContainer.innerHTML = ""; // Clear any existing content
 
-			// Create a video element to show camera preview
-			const videoElement = document.createElement("video");
-			videoElement.style.width = "100%";
-			videoElement.autoplay = true;
-			previewContainer.appendChild(videoElement);
+    // Create a video element to show camera preview
+    const videoElement = document.createElement("video");
+    videoElement.style.width = "100%";
+    videoElement.autoplay = true;
+    previewContainer.appendChild(videoElement);
 
-			try {
-				// Access the camera
-				const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-				videoElement.srcObject = stream;
+    try {
+        // Access the front camera by default
+        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } });
+        videoElement.srcObject = stream;
 
-				// Create a capture button
-				const captureButton = document.createElement("button");
-				captureButton.textContent = "Capture Photo";
-				captureButton.style.marginTop = "10px";
-				previewContainer.appendChild(captureButton);
+        // Create a capture button
+        const captureButton = document.createElement("button");
+        captureButton.textContent = "Capture Photo";
+        captureButton.style.marginTop = "10px";
+        previewContainer.appendChild(captureButton);
 
-				captureButton.addEventListener("click", () => {
-					// Create a canvas to capture the image
-					const canvas = document.createElement("canvas");
-					canvas.width = videoElement.videoWidth;
-					canvas.height = videoElement.videoHeight;
+        captureButton.addEventListener("click", () => {
+            // Create a canvas to capture the image
+            const canvas = document.createElement("canvas");
+            canvas.width = videoElement.videoWidth;
+            canvas.height = videoElement.videoHeight;
 
-					const context = canvas.getContext("2d");
-					context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
+            const context = canvas.getContext("2d");
+            context.drawImage(videoElement, 0, 0, canvas.width, canvas.height);
 
-					// Stop the video stream
-					stream.getTracks().forEach(track => track.stop());
+            // Stop the video stream
+            stream.getTracks().forEach(track => track.stop());
 
-					// Replace video with the captured image
-					previewContainer.innerHTML = "";
-					previewContainer.appendChild(canvas);
-				});
-			} catch (error) {
-				console.error("Camera access error:", error);
-				previewContainer.textContent = "Unable to access the camera.";
-			}
-		});
+            // Replace video with the captured image
+            previewContainer.innerHTML = "";
+            previewContainer.appendChild(canvas);
+        });
+
+        // Add a button/icon to toggle between front and back camera
+        const toggleCameraButton = document.createElement("button");
+        toggleCameraButton.innerHTML = "<i class='fa fa-sync'></i>"; // Example icon (you can use any other icon)
+        toggleCameraButton.style.marginTop = "10px";
+        previewContainer.appendChild(toggleCameraButton);
+
+        toggleCameraButton.addEventListener("click", async () => {
+            // Stop the current video stream
+            stream.getTracks().forEach(track => track.stop());
+
+            // Get the media devices and choose the back camera (deviceId for back camera)
+            const devices = await navigator.mediaDevices.enumerateDevices();
+            const backCamera = devices.find(device => device.kind === 'videoinput' && device.facing === 'environment');
+
+            if (!backCamera) {
+                console.error("Back camera not found.");
+                previewContainer.textContent = "Unable to find the back camera.";
+                return;
+            }
+
+            // Access the back camera
+            const backStream = await navigator.mediaDevices.getUserMedia({
+                video: { deviceId: backCamera.deviceId }
+            });
+
+            videoElement.srcObject = backStream;
+        });
+    } catch (error) {
+        console.error("Camera access error:", error);
+        previewContainer.textContent = "Unable to access the camera.";
+    }
+});
 
 
 		//model
